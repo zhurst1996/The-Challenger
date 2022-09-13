@@ -43,7 +43,7 @@ var intro = {
 
                 resolve(response);
             }
-            xhttp.open("GET", "/data/technologies/list", true);
+            xhttp.open('GET', '/data/technologies/list', true);
             xhttp.send();
         });
     },

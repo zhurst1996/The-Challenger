@@ -43,7 +43,18 @@ class TestLists {
             Promise.all([htmlPromise, javascriptPromise]).then((data) => {
                 var testObj = {
                     html: !!data[0] ? data[0].toString() : false,
-                    js: !!data[1] ? data[1].toString() : false
+                    js: !!data[1] ? data[1].toString() : false,
+                    jsHTML: !!data[1] ?
+                        data[1].toString()
+                        .replace(/\r\n/igm, '<br/>')
+                        .replace(/ /igm, '&nbsp')
+                        .replace(/var\&nbsp/igm, '<strong class="text-primary">var&nbsp</strong>')
+                        .replace(/if\&nbsp/igm, '<strong class="text-primary">if&nbsp</strong>')
+                        .replace(/else\&nbsp/igm, '<strong class="text-primary">else&nbsp</strong>')
+                        .replace(/return\&nbsp/igm, '<strong class="text-primary">return&nbsp</strong>')
+                        .replace(/new\&nbsp/igm, '<strong class="text-primary">new&nbsp</strong>')
+                        .replace(/(Promise\&nbsp)|(Promise)/igm, '<strong class="text-purple">Promise&nbsp</strong>')
+                        .replace(/(function\&nbsp)|(function)/igm, '<strong class="text-warning">function&nbsp</strong>') : false
                 };
 
                 resolve(testObj);

@@ -2,10 +2,18 @@
     margin-top: 78px;
 }
 
+#javascript-container {
+    max-height: 500px;
+}
+
 #techinical-info .sort-by-technology {
     margin-left: 15px;
 }
 
 .margin-x-sm {
     margin: 0px 15px;
+}
+
+.text-purple {
+    color: purple;
 }

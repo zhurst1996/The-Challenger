@@ -24,7 +24,7 @@ function loadStyles() {
 
             resolve();
         }
-        xhttp.open("GET", "/styles/list", true);
+        xhttp.open('GET', '/styles/list', true);
         xhttp.send();
     });
 }
@@ -56,7 +56,7 @@ function loadScripts() {
 
             resolve();
         }
-        xhttp.open("GET", "/tests/list", true);
+        xhttp.open('GET', '/tests/list', true);
         xhttp.send();
     });
 }
@@ -67,7 +67,7 @@ function fetchTest(test, callback) {
         callback(JSON.parse(this.responseText));
     };
 
-    xhttp.open("GET", "/tests/test/" + test, true);
+    xhttp.open('GET', '/tests/test/' + test, true);
     xhttp.send();
 }
 
@@ -85,7 +85,7 @@ function bindings() {
 
             document.getElementById('header').textContent = header;
             document.getElementById('root').innerHTML = data.html;
-            document.getElementById('javascript-container').innerHTML = data.js;
+            document.getElementById('javascript-container').innerHTML = data.jsHTML;
             window[lastTest.replace(/\-/igm, '_')].load(data);
         });
     });
@@ -113,7 +113,7 @@ Promise.all([loadStyles(), loadScripts()]).then(function() {
         fetchTest(lastTest, function(data) {
             document.getElementById('header').textContent = header;
             document.getElementById('root').innerHTML = data.html;
-            document.getElementById('javascript-container').innerHTML = data.js;
+            document.getElementById('javascript-container').innerHTML = data.jsHTML;
             bindings();
 
             window[lastTest.replace(/\-/igm, '_')].load(data);
