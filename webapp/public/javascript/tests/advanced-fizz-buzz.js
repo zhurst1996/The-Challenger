@@ -1,14 +1,14 @@
 var advanced_fizz_buzz = {
     load: function() {
         this.bindings();
+
+        document.getElementsByClassName('delete-set')[0].style = 'display: none;';
     },
     bindings: function() {
         this.addBinding();
         this.computeBinding();
         this.clearBinding();
         this.deleteSetBinding();
-
-        document.getElementsByClassName('delete-set')[0].style = 'display: none;';
     },
     addBinding: function() {
         var $this = this;
