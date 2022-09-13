@@ -1,0 +1,80 @@
+<div id="html-advanced-fizz-buzz">
+    <h5>Description</h5>
+    <p class="text-secondary">
+        Traditionally, the FizzBuzz problem is a classic test given in coding interviews. The task is simple: Print integers 1 to N, but print “Fizz” if an integer is divisible by 3, “Buzz” if an integer is divisible by 5, and “FizzBuzz” if an integer is divisible
+        by both 3 and 5.
+    </p>
+    <p class="text-secondary">
+        In this case, we will be allowing you to enter any 2 numbers and choosing the rules (AND/OR) for as many rule sets as you would like. Please be advised increased numbers will cause strain on your computers processing and computing time.
+    </p>
+    <h5>Fizz Buzz</h5>
+    <div id="all-rule-sets-container">
+        <div class="fizz-buzz-container mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h6 class="card-title">Rule Set <span class="rule-set-count">1</span></h6>
+                        <button class="btn btn-sm btn-outline-danger delete-set"><i class="gg-trash"></i></button>
+                    </div>
+                    <div class="count-container row mb-3">
+                        <div class="col-sm-8">
+                            Count up to:
+                        </div>
+                        <div class="col-sm-4"><input class="form-control count" value="20" /></div>
+                    </div>
+
+                    <div class="input-container row">
+                        <div class="fizz-container col-sm-5">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Fizz</span>
+                                </div>
+
+                                <input class="form-control fizz" value="3" />
+                            </div>
+                        </div>
+
+                        <div class="rule-set-container col-sm-2">
+                            <select class="rule-select form-control">
+                                <option value="and">And</option>
+                                <option value="or">Or</option>
+                            </select>
+                        </div>
+
+                        <div class="buzz-container col-sm-5">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="gg-bee"></i></span>
+                                </div>
+
+                                <input class="form-control buzz" value="5" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 add-rule-set-button-container mb-5">
+            <a id="add-rule-set-button" href="#compute-button">Add Rule Set</a>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <h5>Output</h5>
+        <a class="float-right" id="clear-ouput-button" href="#compute-button">Clear</a>
+    </div>
+
+    <div id="fizz-buzz-output-container" class="card mb-3">
+        <div class="card-body output-list"></div>
+    </div>
+
+    <div class="d-flex justify-content-between mb-5">
+        <div class="clearfix"></div>
+        <div class="compute-button-container">
+            <a href="#compute-button" id="compute-button" class="btn btn-primary">Compute</a>
+        </div>
+    </div>
+</div>

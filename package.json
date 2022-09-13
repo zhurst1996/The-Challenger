@@ -1,0 +1,16 @@
+{
+    "name": "TheChallenger",
+    "version": "1.0.0",
+    "main": "app.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "keywords": [],
+    "author": "Zachary Hurst",
+    "license": "MIT",
+    "email": "zacharyhurst0378@gmail.com",
+    "description": "A testing page for common interview questions / challenges",
+    "dependencies": {
+        "express": "^4.18.1"
+    }
+}
