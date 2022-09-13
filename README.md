@@ -1,6 +1,6 @@
 ﻿# The-Challenger
 ## Description
-The Challenger is a personal project that takes common JavaScript examples loads them into an exmaple webpage.
+The Challenger is a personal project that takes common JavaScript examples loads them into an example webpage.
 
 ## Usage
 - Install the project
