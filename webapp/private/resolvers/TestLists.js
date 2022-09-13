@@ -51,9 +51,11 @@ class TestLists {
                         .replace(/(var\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
                         .replace(/(if\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
                         .replace(/(else\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
-                        .replace(/(return\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
+                        .replace(/(return\&nbsp)/igm, '<strong class="text-purple">$1</strong>')
                         .replace(/(new\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
-                        .replace(/((Promise\&nbsp)|(Promise))/igm, '<strong class="text-purple">$1</strong>')
+                        .replace(/((Promise\&nbsp)|(Promise))/igm, '<strong class="text-success">$1</strong>')
+                        .replace(/(for\&nbsp)/igm, '<strong class="text-purple">$1</strong>')
+                        .replace(/(while\&nbsp)/igm, '<strong class="text-purple">$1</strong>')
                         .replace(/(\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$)/igm, '<p class="text-success">$1</p>')
                         .replace(/((function\&nbsp)|(function))/igm, '<strong class="text-warning">$1</strong>') : false
                 };

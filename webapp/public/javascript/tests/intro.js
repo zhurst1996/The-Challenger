@@ -28,7 +28,9 @@ var intro = {
         document.getElementById('techinical-info').getElementsByClassName('sort-by-technology')[0].addEventListener('change', function() {
             var renderData = structuredClone($this.data);
 
-            document.getElementById('techinical-info').getElementsByClassName('technology-table')[0].getElementsByTagName('tbody')[0].innerHTML = '';
+            document.getElementById('techinical-info')
+                .getElementsByClassName('technology-table')[0]
+                .getElementsByTagName('tbody')[0].innerHTML = '';
 
             renderData.data = $this.groupTechnologySet(renderData.data, renderData.numberOfColumns, [], parseInt(this.value));
             $this.createTechnologyDataEntries(renderData.data, renderData.numberOfColumns, renderData.numberOfRows);
@@ -97,7 +99,10 @@ var intro = {
 
             initialDataSet.sort((function(index) {
                 return function(a, b) {
-                    return (a[index].data.toLocaleLowerCase() === b[index].data.toLocaleLowerCase() ? 0 : (a[index].data.toLocaleLowerCase() < b[index].data.toLocaleLowerCase() ? -1 : 1));
+                    return (
+                        a[index].data.toLocaleLowerCase() === b[index].data.toLocaleLowerCase() ? 0 :
+                        (a[index].data.toLocaleLowerCase() < b[index].data.toLocaleLowerCase() ? -1 : 1)
+                    );
                 };
             })(grouping - 1));
 
@@ -119,8 +124,13 @@ var intro = {
             th.textContent = header.data;
             th.scope = 'col';
 
-            document.getElementById('techinical-info').getElementsByClassName('sort-by-technology')[0].appendChild(option);
-            document.getElementById('techinical-info').getElementsByClassName('technology-table')[0].getElementsByTagName('thead')[0].getElementsByTagName('tr')[0].appendChild(th);
+            document.getElementById('techinical-info')
+                .getElementsByClassName('sort-by-technology')[0].appendChild(option);
+
+            document.getElementById('techinical-info')
+                .getElementsByClassName('technology-table')[0]
+                .getElementsByTagName('thead')[0]
+                .getElementsByTagName('tr')[0].appendChild(th);
         });
     },
 
@@ -138,7 +148,9 @@ var intro = {
                 data.splice(0, 1);
             }
 
-            document.getElementById('techinical-info').getElementsByClassName('technology-table')[0].getElementsByTagName('tbody')[0].appendChild(tr);
+            document.getElementById('techinical-info')
+                .getElementsByClassName('technology-table')[0]
+                .getElementsByTagName('tbody')[0].appendChild(tr);
         }
     },
 
