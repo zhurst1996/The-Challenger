@@ -1,6 +1,6 @@
 ﻿# The-Challenger
 
-#Usage
+## Usage
 Install the project
 cd /your-folder-location/
 npm install
