@@ -48,13 +48,14 @@ class TestLists {
                         data[1].toString()
                         .replace(/\r\n/igm, '<br/>')
                         .replace(/ /igm, '&nbsp')
-                        .replace(/var\&nbsp/igm, '<strong class="text-primary">var&nbsp</strong>')
-                        .replace(/if\&nbsp/igm, '<strong class="text-primary">if&nbsp</strong>')
-                        .replace(/else\&nbsp/igm, '<strong class="text-primary">else&nbsp</strong>')
-                        .replace(/return\&nbsp/igm, '<strong class="text-primary">return&nbsp</strong>')
-                        .replace(/new\&nbsp/igm, '<strong class="text-primary">new&nbsp</strong>')
-                        .replace(/(Promise\&nbsp)|(Promise)/igm, '<strong class="text-purple">Promise&nbsp</strong>')
-                        .replace(/(function\&nbsp)|(function)/igm, '<strong class="text-warning">function&nbsp</strong>') : false
+                        .replace(/(var\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
+                        .replace(/(if\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
+                        .replace(/(else\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
+                        .replace(/(return\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
+                        .replace(/(new\&nbsp)/igm, '<strong class="text-primary">$1</strong>')
+                        .replace(/((Promise\&nbsp)|(Promise))/igm, '<strong class="text-purple">$1</strong>')
+                        .replace(/(\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$)/igm, '<p class="text-success">$1</p>')
+                        .replace(/((function\&nbsp)|(function))/igm, '<strong class="text-warning">$1</strong>') : false
                 };
 
                 resolve(testObj);

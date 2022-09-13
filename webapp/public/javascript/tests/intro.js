@@ -58,9 +58,9 @@ var intro = {
         return (diffDays / 365);
     },
 
-    getZachAge: function() {
-        var exactAge = this.findDateRangeByYear(new Date(), '11/01/1996'),
-            approxAge = Math.round(this.findDateRangeByYear(new Date(), '11/01/1996'));
+    getAuthorAge: function() {
+        var exactAge = this.findDateRangeByYear(new Date(), window.author.dob),
+            approxAge = Math.round(this.findDateRangeByYear(new Date(), window.author.dob));
 
         return {
             exactAge: exactAge,
@@ -68,12 +68,14 @@ var intro = {
         };
     },
 
-    getZachWorkTime: function() {
-        return Math.round(this.findDateRangeByYear(new Date(), '2/01/2019'));
+    getAuthorWorkTime: function() {
+        return Math.round(this.findDateRangeByYear(new Date(), window.author.startWorkDate));
     },
 
     /*
-        Example of a recursive function
+        Example of a recursive function, this is completely unnecessary to do
+        however I am showing the extent of my knowledge of concatinating arrays,
+        manipulating data, and creating a recursive function without Big O.
     */
     groupTechnologySet: function(data, numberOfColumns, initialDataSet, grouping) {
         var thisDataSet = [];
@@ -157,13 +159,17 @@ var intro = {
             $this.renderTechnology(renderData);
         });
 
-        var ages = this.getZachAge(),
-            workTime = this.getZachWorkTime();
+        var ages = this.getAuthorAge(),
+            workTime = this.getAuthorWorkTime();
 
         var intro = document.getElementById('html-intro');
 
-        intro.getElementsByClassName('exact-zach-age')[0].textContent = ages.exactAge;
-        intro.getElementsByClassName('approx-zach-age')[0].textContent = ages.approxAge;
-        intro.getElementsByClassName('zach-work-time')[0].textContent = workTime;
+        intro.getElementsByClassName('author-name')[0].textContent = window.author.first + ' ' + window.author.last;
+        intro.getElementsByClassName('exact-author-age')[0].textContent = ages.exactAge;
+        intro.getElementsByClassName('approx-author-age')[0].textContent = ages.approxAge;
+        intro.getElementsByClassName('author-work-time')[0].textContent = workTime;
+        intro.getElementsByClassName('author-title')[0].textContent = window.author.title;
+        intro.getElementsByClassName('author-primary-language')[0].textContent = window.author.primaryLanguage;
+        intro.getElementsByClassName('author-resume')[0].href = window.author.resume;
     }
 };

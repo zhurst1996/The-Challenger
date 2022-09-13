@@ -6,12 +6,41 @@
     max-height: 500px;
 }
 
+#copy-javascript {
+    bottom: 3rem;
+    right: 3rem;
+}
+
 #techinical-info .sort-by-technology {
     margin-left: 15px;
 }
 
 .margin-x-sm {
     margin: 0px 15px;
+}
+
+.mr-1 {
+    margin-right: 1rem;
+}
+
+.mr-2 {
+    margin-right: 2rem;
+}
+
+.mr-3 {
+    margin-right: 3rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.mb-3 {
+    margin-bottom: 3rem;
 }
 
 .text-purple {
