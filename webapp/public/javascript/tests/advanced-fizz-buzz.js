@@ -14,14 +14,14 @@ var advanced_fizz_buzz = {
         var $this = this;
 
         document.getElementById('add-rule-set-button').addEventListener('click', function() {
-            $this.renderNewRuleSet($this);
+            $this.renderNewRuleSet.apply($this);
         });
     },
     computeBinding: function() {
         var $this = this;
 
         document.getElementById('compute-button').addEventListener('click', function() {
-            $this.renderOutput($this);
+            $this.renderOutput.apply($this);
         });
     },
     clearBinding: function() {
@@ -160,7 +160,7 @@ var advanced_fizz_buzz = {
         div.appendChild(ul);
         outputListElem.appendChild(div);
     },
-    renderNewRuleSet: function($this) {
+    renderNewRuleSet: function() {
         var fizzBuzzContainerElem = document.getElementById('all-rule-sets-container').getElementsByClassName('fizz-buzz-container')[0],
             fizzBuzzClone = fizzBuzzContainerElem.cloneNode(true);
 
@@ -175,7 +175,8 @@ var advanced_fizz_buzz = {
 
         $this.deleteSetBinding();
     },
-    renderOutput: function($this) {
+    renderOutput: function() {
+        var $this = this;
         var results = $this.calculateNums();
 
         console.log(results);
