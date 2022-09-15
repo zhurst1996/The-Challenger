@@ -11,6 +11,8 @@
     "email": "zacharyhurst0378@gmail.com",
     "description": "A testing page for common interview questions / challenges",
     "dependencies": {
-        "express": "^4.18.1"
+        "express": "^4.18.1",
+        "grunt": "^1.5.3",
+        "grunt-contrib-uglify": "^5.2.2"
     }
 }

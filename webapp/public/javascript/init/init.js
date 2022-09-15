@@ -6,30 +6,6 @@
         lastTest = 'intro';
     }
 
-    function loadStyles() {
-        return new Promise(function(resolve, reject) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
-                var response = JSON.parse(this.responseText);
-
-                response.forEach(function(link) {
-                    var childLink = document.createElement('link');
-
-                    childLink.href = link;
-                    childLink.rel = 'stylesheet';
-
-                    document.getElementsByTagName('head')[0].appendChild(childLink);
-                });
-
-                document.getElementById('root').style.display = 'block';
-
-                resolve();
-            }
-            xhttp.open('GET', '/styles/list', true);
-            xhttp.send();
-        });
-    }
-
     function loadScripts() {
         return new Promise(function(resolve, reject) {
             var xhttp = new XMLHttpRequest();
@@ -37,20 +13,14 @@
                 var response = JSON.parse(this.responseText);
 
                 response.forEach(function(link) {
-                    var childLink = document.createElement('script');
-
-                    childLink.id = link.replace(/\.js/igm, '');
-                    childLink.src = '/public/javascript/tests/' + link;
-                    childLink.type = 'text/javascript';
-
-                    document.getElementsByTagName('head')[0].appendChild(childLink);
-
                     var childOption = document.createElement('option');
+                    var linkWithoutExtension = link.replace(/\.js/, '');
+                    var optionText = linkWithoutExtension.capitalizeEachFirstLetters('-');
 
-                    childOption.textContent = link.split('-').join(' ').replace(/\.js/, '');
-                    childOption.value = childLink.id;
+                    childOption.textContent = optionText;
+                    childOption.value = linkWithoutExtension;
                     childOption.classList = 'text-capitalize';
-                    childOption.selected = childLink.id == lastTest;
+                    childOption.selected = childOption.value == lastTest;
 
                     document.getElementById('test-select').appendChild(childOption);
                 });
@@ -62,14 +32,16 @@
         });
     }
 
-    function fetchTest(test, callback) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            callback(JSON.parse(this.responseText));
-        };
+    function fetchTest(test) {
+        return new Promise(function(resolve, reject) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                resolve(JSON.parse(this.responseText));
+            };
 
-        xhttp.open('GET', '/tests/test/' + test, true);
-        xhttp.send();
+            xhttp.open('GET', '/tests/test/' + test, true);
+            xhttp.send();
+        });
     }
 
     function fetchAuthorInfo(callback) {
@@ -79,16 +51,6 @@
         };
 
         xhttp.open('GET', '/public/assets/author-info.json', true);
-        xhttp.send();
-    }
-
-    function fetchTest(test, callback) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            callback(JSON.parse(this.responseText));
-        };
-
-        xhttp.open('GET', '/tests/test/' + test, true);
         xhttp.send();
     }
 
@@ -103,8 +65,8 @@
             lastTest = this.value;
             localStorage.setItem('lastTest', lastTest);
 
-            fetchTest(lastTest, function(data) {
-                var header = capitalizeFirstLetter(lastTest).replace(/\-/igm, ' ');
+            fetchTest(lastTest).then(function(data) {
+                var header = lastTest.replace(/\-/igm, ' ').capitalizeFirstLetter();
 
                 document.getElementById('header').textContent = header;
                 document.getElementById('root').innerHTML = data.html;
@@ -147,26 +109,21 @@
         window.author = author;
 
         /*
-            Sample of dynamic DOM head loading
+            Sample of dynamic script loading
         */
-        Promise.all([loadStyles(), loadScripts()]).then(function() {
-            var script = document.getElementById(lastTest),
-                header = capitalizeFirstLetter(lastTest).replace(/\-/igm, ' ');
+        var header = lastTest.capitalizeEachFirstLetters('-');
 
-            /*
-                Dynamic Script Loading
-            */
-            script.addEventListener('load', function() {
-                fetchTest(lastTest, function(data) {
-                    document.getElementById('header').textContent = header;
-                    document.getElementById('root').innerHTML = data.html;
-                    document.getElementById('javascript-container').innerHTML = data.jsHTML;
-                    document.getElementById('javascript-copy-input').value = data.js;
-                    bindings();
+        Promise.all([loadScripts(), fetchTest(lastTest)]).then(function(test) {
+            var data = test[1];
 
-                    window[lastTest.replace(/\-/igm, '_')].load(data);
-                });
-            });
+            document.getElementById('header').textContent = header;
+            document.getElementById('root').innerHTML = data.html;
+            document.getElementById('javascript-container').innerHTML = data.jsHTML;
+            document.getElementById('javascript-copy-input').value = data.js;
+            bindings();
+
+            window[lastTest.replace(/\-/igm, '_')].load(data);
+            document.getElementById('root').style = '';
         });
     });
 })();

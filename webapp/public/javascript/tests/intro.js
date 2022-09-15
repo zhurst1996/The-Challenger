@@ -185,3 +185,5 @@ var intro = {
         intro.getElementsByClassName('author-resume')[0].href = window.author.resume;
     }
 };
+
+window['intro'] = intro;

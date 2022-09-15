@@ -133,7 +133,7 @@ var advanced_fizz_buzz = {
 
         div.classList = 'results-list';
         h6.classList = 'card-subtitle';
-        h6.textContent = capitalizeFirstLetter(entry.rule) + ' Rule Set ' + entry.ruleSet;
+        h6.textContent = entry.rule.capitalizeFirstLetter() + ' Rule Set ' + entry.ruleSet;
 
         var hasFizzBuzz = !!entry.results.filter(function(result, i) {
             var resultData = result[i + 1];
@@ -173,7 +173,7 @@ var advanced_fizz_buzz = {
         lastFizzBuzzContainerElem.getElementsByClassName('rule-set-count')[0].textContent = fizzBuzzLength;
         lastFizzBuzzContainerElem.getElementsByClassName('delete-set')[0].style = '';
 
-        $this.deleteSetBinding();
+        this.deleteSetBinding();
     },
     renderOutput: function() {
         var $this = this;
@@ -186,3 +186,5 @@ var advanced_fizz_buzz = {
         });
     }
 };
+
+window['advanced_fizz_buzz'] = advanced_fizz_buzz;
