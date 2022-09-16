@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <head>
+    <meta name="viewport" content="width=500, initial-scale=1" />
+
     <title>The Challenger By Zachary Hurst</title>
     <link rel="icon" type="image/x-icon" href="/public/images/favicon.png" />
     <link href='https://cdn.jsdelivr.net/npm/css.gg/icons/all.css' rel='stylesheet'>
@@ -14,11 +16,11 @@
     <nav class="fixed-top navbar navbar-light bg-primary">
         <a class="p-3 navbar-brand text-light" href="/"> The Challenger</a>
 
-        <div class="w-50 row">
-            <div class="col-sm-11">
+        <div class="w-50 d-flex justify-content-end">
+            <div class="">
                 <select class="form-control" id="test-select"></select>
             </div>
-            <div class="my-auto col-sm-1">
+            <div class="mx-4 my-auto">
                 <label for="test-select" class="text-light"><i class="gg-code-slash"></i></label>
             </div>
         </div>
@@ -29,7 +31,7 @@
             <div id="javascript-container" class="border border-primary rounded p-3 overflow-auto" style="display: none;"></div>
 
             <div class="d-flex justify-content-end">
-                <a id="copy-javascript" href="#" class="position-relative" style="display: none;"><i class="gg-copy"></i></a>
+                <a id="copy-javascript" href="#" class="rounded p-3 bg-primary text-light position-relative" style="display: none;"><i class="gg-copy"></i></a>
                 <input id="javascript-copy-input" style="display: none;" />
             </div>
         </div>

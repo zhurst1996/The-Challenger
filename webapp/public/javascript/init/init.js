@@ -80,7 +80,7 @@
     function copyJavascriptBinding() {
         document.getElementById('copy-javascript').addEventListener('click', function() {
             copy(document.getElementById('javascript-copy-input'));
-            document.getElementById('copy-javascript').innerHTML = '<i class="text-success gg-check"></i>';
+            document.getElementById('copy-javascript').innerHTML = '<i class="gg-check"></i>';
 
             setTimeout(function() {
                 document.getElementById('copy-javascript').innerHTML = '<i class="gg-copy"></i>';
