@@ -57,7 +57,7 @@ class TestLists {
                         .replace(/(for\&nbsp)/igm, '<strong class="text-purple">$1</strong>')
                         .replace(/(while\&nbsp)/igm, '<strong class="text-purple">$1</strong>')
                         .replace(/(\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$)/igm, '<p class="text-success">$1</p>')
-                        .replace(/((function\&nbsp)|(function))/igm, '<strong class="text-warning">$1</strong>') : false
+                        .replace(/((function\&nbsp)|(function))/igm, '<strong class="text-primary">$1</strong>') : false
                 };
 
                 resolve(testObj);

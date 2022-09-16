@@ -66,7 +66,7 @@
             localStorage.setItem('lastTest', lastTest);
 
             fetchTest(lastTest).then(function(data) {
-                var header = lastTest.replace(/\-/igm, ' ').capitalizeFirstLetter();
+                var header = lastTest.replace(/\-/igm, ' ').capitalizeEachFirstLetters();
 
                 document.getElementById('header').textContent = header;
                 document.getElementById('root').innerHTML = data.html;
