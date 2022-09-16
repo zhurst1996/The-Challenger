@@ -1,19 +1,6 @@
-#root-container {
-    margin-top: 78px;
-}
-
-#javascript-container {
-    max-height: 500px;
-}
-
-#copy-javascript {
-    bottom: 3rem;
-    right: 3rem;
-}
-
-#techinical-info .sort-by-technology {
-    margin-left: 15px;
-}
+/*
+    Margining
+*/
 
 .margin-x-sm {
     margin: 0px 15px;
@@ -43,6 +30,46 @@
     margin-bottom: 3rem;
 }
 
+
+/*
+    Text
+*/
+
 .text-purple {
     color: purple;
+}
+
+
+/*
+    Box Shadow
+*/
+
+.box-shadow-light {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+
+/*
+    Custom Element Styling
+*/
+
+input.count {
+    max-width: 150px;
+}
+
+#root-container {
+    margin-top: 78px;
+}
+
+#javascript-container {
+    max-height: 500px;
+}
+
+#copy-javascript {
+    bottom: 3rem;
+    right: 3rem;
+}
+
+#techinical-info .sort-by-technology {
+    margin-left: 15px;
 }

@@ -10,17 +10,14 @@
     <h5>Fizz Buzz</h5>
     <div id="all-rule-sets-container">
         <div class="fizz-buzz-container mb-3">
-            <div class="card">
+            <div class="card box-shadow-light">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
                         <h6 class="card-title">Rule Set <span class="rule-set-count">1</span></h6>
                         <button class="btn btn-sm btn-outline-danger delete-set"><i class="gg-trash"></i></button>
                     </div>
-                    <div class="count-container row mb-3">
-                        <div class="col-sm-8">
-                            Count up to:
-                        </div>
-                        <div class="col-sm-4"><input class="form-control count" value="20" /></div>
+                    <div class="d-flex justify-content-start count-container mb-3">
+                        <span class="my-auto">Count up to:</span> <input class="form-control count mx-3 text-center" type="number" value="20" />
                     </div>
 
                     <div class="input-container row">
@@ -30,12 +27,12 @@
                                     <span class="input-group-text">Fizz</span>
                                 </div>
 
-                                <input class="form-control fizz" value="3" />
+                                <input class="form-control fizz" type="number" value="3" />
                             </div>
                         </div>
 
                         <div class="rule-set-container col-sm-2">
-                            <select class="rule-select form-control">
+                            <select class="rule-select form-control text-center">
                                 <option value="and">And</option>
                                 <option value="or">Or</option>
                             </select>
@@ -47,7 +44,7 @@
                                     <span class="input-group-text"><i class="gg-bee"></i></span>
                                 </div>
 
-                                <input class="form-control buzz" value="5" />
+                                <input class="form-control buzz" type="number" value="5" />
                             </div>
                         </div>
                     </div>
