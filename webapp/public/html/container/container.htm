@@ -27,8 +27,11 @@
         </div>
     </nav>
     <div id="root-container">
-        <a id="see-javascript" href="#javascript-container" class="margin-x-sm">See JavaScript</a>
-        <div class="container mb-3">
+        <h4 id="header" class="text-primary px-3 pt-3"></h4>
+        <div id="root" class="container" style="display: none;"></div>
+        <a id="see-javascript" href="#javascript-container" class="fixed-bottom text-center margin-x-sm">See JavaScript</a>
+        <div class="container my-3">
+            <h4 id="javascript-header" class="text-primary" style="display: none;">JavaScript</h4>
             <div id="javascript-container" class="border border-primary rounded p-3 overflow-auto" style="display: none;"></div>
 
             <div class="d-flex justify-content-end">
@@ -36,7 +39,5 @@
                 <input id="javascript-copy-input" style="display: none;" />
             </div>
         </div>
-        <h4 id="header" class="text-primary px-3 pt-3"></h4>
-        <div id="root" class="container" style="display: none;"></div>
     </div>
 </body>

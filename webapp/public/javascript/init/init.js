@@ -92,10 +92,12 @@
         document.getElementById('see-javascript').addEventListener('click', function() {
             if (this.textContent == 'See JavaScript') {
                 document.getElementById('javascript-container').style = '';
+                document.getElementById('javascript-header').style = '';
                 document.getElementById('copy-javascript').style = '';
                 this.textContent = 'Hide JavaScript';
             } else {
                 document.getElementById('javascript-container').style = 'display: none;';
+                document.getElementById('javascript-header').style = 'display: none;';
                 document.getElementById('copy-javascript').style = 'display: none;';
                 this.textContent = 'See JavaScript';
             }
