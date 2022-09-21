@@ -12,3 +12,4 @@ The Challenger is a personal project that takes common JavaScript examples loads
 - Intro based on the author (in this case me, Zachary Hurst)
 - JavaScript code exposure
 - Fizz Buzz
+- Weather Forecast
