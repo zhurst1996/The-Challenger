@@ -1,11 +1,16 @@
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(
+    import.meta.url
+);
 
 class StyleLists {
     constructor() {}
 
     fetch() {
-        const directoryPath = path.join(__dirname, '../../public/styles');
+        const directoryPath = path.join(path.dirname(__filename), '../../public/styles');
 
         return new Promise((resolve, reject) => {
             fs.readdir(directoryPath, (err, files) => {
@@ -35,4 +40,4 @@ class StyleLists {
     }
 }
 
-module.exports = StyleLists;
+export default StyleLists;

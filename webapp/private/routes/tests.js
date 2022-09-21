@@ -1,5 +1,5 @@
-const express = require('express');
-const TestLists = require('../resolvers/TestLists');
+import express from 'express';
+import TestLists from '../resolvers/TestLists.js';
 
 const router = express.Router();
 
@@ -20,4 +20,4 @@ router.get('/list', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,10 @@
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(
+    import.meta.url
+);
 
 class TestLists {
     constructor(params) {
@@ -9,7 +14,7 @@ class TestLists {
     }
 
     fetchList() {
-        const directoryPath = path.join(__dirname, '../../public/javascript/tests');
+        const directoryPath = path.join(path.dirname(__filename), '../../public/javascript/tests');
 
         return new Promise((resolve, reject) => {
             fs.readdir(directoryPath, (err, files) => {
@@ -25,14 +30,14 @@ class TestLists {
 
     fetchTest() {
         var htmlPromise = new Promise((resolve, reject) => {
-                let directoryPath = path.join(__dirname, '../../public/html/' + this.page + '.htm');
+                let directoryPath = path.join(path.dirname(__filename), '../../public/html/' + this.page + '.htm');
 
                 fs.readFile(directoryPath, (err, data) => {
                     resolve(data);
                 });
             }),
             javascriptPromise = new Promise((resolve, reject) => {
-                let directoryPath = path.join(__dirname, '../../public/javascript/' + this.page + '.js');
+                let directoryPath = path.join(path.dirname(__filename), '../../public/javascript/' + this.page + '.js');
 
                 fs.readFile(directoryPath, (err, data) => {
                     resolve(data);
@@ -66,4 +71,4 @@ class TestLists {
     }
 }
 
-module.exports = TestLists;
+export default TestLists;

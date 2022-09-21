@@ -1,11 +1,16 @@
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(
+    import.meta.url
+);
 
 class TechnologyLists {
     constructor() {}
 
     fetch() {
-        const directoryPath = path.join(__dirname, '../../public/assets/technologies.csv');
+        const directoryPath = path.join(path.dirname(__filename), '../../public/assets/technologies.csv');
 
         var $this = this;
         return new Promise((resolve, reject) => {
@@ -76,4 +81,4 @@ class TechnologyLists {
     }
 }
 
-module.exports = TechnologyLists;
+export default TechnologyLists;

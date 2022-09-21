@@ -1,5 +1,5 @@
-const express = require('express');
-const TechnologyList = require('../resolvers/TechnologyLists.js');
+import express from 'express';
+import TechnologyList from '../resolvers/TechnologyLists.js';
 
 const router = express.Router();
 
@@ -11,4 +11,4 @@ router.get('/technologies/list', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

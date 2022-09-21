@@ -22,3 +22,10 @@ String.prototype.capitalizeEachFirstLetters = function(char) {
 function copy(input) {
     navigator.clipboard.writeText(input.value);
 }
+
+/*
+    Date Manipulations
+*/
+Date.prototype.getDateTime = function() {
+    return this.toLocaleString('en-US', { hour12: true });
+};

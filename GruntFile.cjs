@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = (grunt) => {
 
     // Project configuration.
@@ -8,13 +10,12 @@ module.exports = (grunt) => {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: __dirname + '/webapp/public/javascript/**/*.js',
-                dest: __dirname + '/webapp/public/min/<%= pkg.name %>.min.js'
+                src: path.dirname(__filename) + '/webapp/public/javascript/**/*.js',
+                dest: path.dirname(__filename) + '/webapp/public/min/<%= pkg.name %>.min.js'
             }
         }
     });
 
-    // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     // Default task(s).

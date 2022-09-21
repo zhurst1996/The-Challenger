@@ -39,6 +39,10 @@
     color: purple;
 }
 
+.text-sm {
+    font-size: 12px;
+}
+
 
 /*
     Box Shadow
@@ -72,4 +76,8 @@ input.count {
 
 #techinical-info .sort-by-technology {
     margin-left: 15px;
+}
+
+#see-javascript {
+    z-index: 1;
 }
