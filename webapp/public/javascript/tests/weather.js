@@ -37,6 +37,8 @@ var weather = {
             forecastCardLastUpdatedContainer = document.createElement('blockquote'),
             forecastCardLastUpdatedText = document.createElement('footer');
 
+        var temperatureTrendText = !!period.temperatureTrend ? period.temperatureTrend.capitalizeFirstLetter() : 'No trend';
+
         forecastCardContainer.classList = 'carousel-item';
         forecastCard.classList = 'card forecast-card';
         forecastCardBody.classList = 'card-body';
@@ -53,7 +55,7 @@ var weather = {
         forecastCardImg.src = period.icon;
         forecastCardTitle.textContent = period.name + '\'s Forecast';
         forecastCardSubTitle.textContent = period.shortForecast;
-        forecastCardTempText.textContent = 'Temperature: ' + period.temperature + period.temperatureUnit + ' (' + period.temperatureTrend + ')';
+        forecastCardTempText.textContent = 'Temperature: ' + period.temperature + period.temperatureUnit + ' (' + temperatureTrendText + ')';
         forecastCardWindText.textContent = 'Wind: ' + period.windSpeed + ' (' + period.windDirection + ')';
         forecastCardDetailsText.textContent = period.detailedForecast;
         forecastCardLastUpdatedText.textContent = 'Last Updated: ' + lastUpdated;
