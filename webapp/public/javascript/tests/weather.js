@@ -67,6 +67,8 @@ var weather = {
             styles.src += 'clear.mp4';
         } else if (/cloud/igm.test(desc)) {
             styles.src += 'cloudy.mp4';
+        } else if (/hail/igm.test(desc)) {
+            styles.src += 'hail.mp4';
         } else if (/(rain)|(shower)/igm.test(desc)) {
             styles.src += 'rainy.mp4';
         } else {
