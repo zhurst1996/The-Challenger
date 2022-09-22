@@ -64,7 +64,7 @@
         document.getElementById('test-select').addEventListener('change', function() {
             lastTest = this.value;
             localStorage.setItem('lastTest', lastTest);
-
+            document.getElementById('root').style = 'display: none;';
             fetchTest(lastTest).then(function(data) {
                 var header = lastTest.replace(/\-/igm, ' ').capitalizeEachFirstLetters();
 
@@ -73,6 +73,7 @@
                 document.getElementById('javascript-container').innerHTML = data.jsHTML;
                 document.getElementById('javascript-copy-input').value = data.js;
                 window[lastTest.replace(/\-/igm, '_')].load(data);
+                document.getElementById('root').style = '';
             });
         });
     }
