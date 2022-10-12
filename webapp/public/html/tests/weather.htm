@@ -1,31 +1,38 @@
-<div id="html-weather">
-    <div class="coordinates row mb-4">
-        <div class="col-md-6 col-sm-12">
-            <h5>Current Coordinates:</h5>
-            <div class="details"></div>
+<div id="html-weather" class="h-100">
+    <div id="all-forecast-container" class="row init-fade-in h-100" style="display: none;">
+        <div id="weather-info-section" class="d-flex col-sm-9 text-light p-5">
+            <div class="weather-temp text-xl position-relative mx-4 text-shadow"></div>
+            <div class="weather-location coordinates text-md position-relative">
+                <div class="approx-location text-shadow my-1"></div>
+                <div class="weather-date text-xs text-shadow"></div>
+            </div>
+            <div class="position-relative mx-4">
+                <div class="weather-icon"></div>
+                <div class="weather-desc text-shadow"></div>
+            </div>
         </div>
-        <div class="col-md-6 col-sm-12">
-            <h5>Approximate Location:</h5>
-            <div class="approx-location"></div>
-        </div>
-    </div>
 
-    <div id="all-forecast-container" class="row init-fade-in" style="display: none;">
-        <h5>Forecast:</h5>
-        <div class="day-forecast-container">
-            <div id="weather-carousel" class="carousel slide box-shadow-light rounded" data-bs-ride="carousel">
-                <div class="carousel-inner"></div>
+        <div id="weather-menu" class="col-sm-3 weather-menu-background overflow-auto">
+            <!--
+                <div class="search-container mx-auto mt-2 mb-4 w-75">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <i id="weather-search-addon" class="text-light text-sm my-2 mr-1 gg-pin"></i>
+                        </div>
+                        <input id="location-search" class="text-light bg-transparent text-center form-control" aria-describedby="weather-search-addon" placeholder="Search for Places" />
+                    </div>
+                </div>
+            -->
+            <div class="mb-4"></div>
+            <div class="text-light">
+                <h5>Weather Details</h5>
             </div>
-            <div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#weather-carousel" data-bs-slide="prev">
-                    <span class="gg-arrow-left-r text-primary" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#weather-carousel" data-bs-slide="next">
-                    <span class="gg-arrow-right-r text-primary" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
+            <div id="weather-details" class="border-top border-light mb-4"></div>
+
+            <div class="text-light">
+                <h5>Weather Range</h5>
             </div>
+            <ul id="weather-day-change" class="border-top border-light mb-4"></ul>
         </div>
     </div>
 </div>

@@ -1,3 +1,8 @@
+html {
+    height: 100%;
+}
+
+
 /*
     Margining
 */
@@ -39,8 +44,24 @@
     color: purple;
 }
 
+.text-xl {
+    font-size: 40px;
+}
+
+.text-lg {
+    font-size: 30px;
+}
+
+.text-md {
+    font-size: 18px;
+}
+
 .text-sm {
     font-size: 12px;
+}
+
+.text-xs {
+    font-size: 9px;
 }
 
 .text-shadow {
@@ -60,6 +81,10 @@
 /*
     Custom Element Styling
 */
+
+ul {
+    list-style-type: circle;
+}
 
 input.count {
     max-width: 150px;
@@ -86,8 +111,8 @@ input.count {
     z-index: 1030;
 }
 
-.forecast-card .card-body {
-    z-index: 100;
+#weather-info-section .position-relative {
+    left: 5%;
 }
 
 .background-video {
@@ -161,6 +186,63 @@ input.count {
     }
 }
 
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* Firefox < 16 */
+
+@-moz-keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* Safari, Chrome and Opera > 12.1 */
+
+@-webkit-keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* Internet Explorer */
+
+@-ms-keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* Opera < 12.1 */
+
+@-o-keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 .init-fade-in {
     -webkit-animation: fadein 2s;
     /* Safari, Chrome and Opera > 12.1 */
@@ -171,4 +253,49 @@ input.count {
     -o-animation: fadein 2s;
     /* Opera < 12.1 */
     animation: fadein 2s;
+}
+
+.hover-click {
+    cursor: pointer;
+}
+
+.hover-click:hover {
+    color: dodgerblue;
+}
+
+
+/*
+    Backgrounds
+*/
+
+.weather-clear {
+    background-image: url('/public/images/weather/clear.jpg');
+}
+
+.weather-cloudy {
+    background-image: url('/public/images/weather/cloudy.jpg');
+}
+
+.weather-hail {
+    background-image: url('/public/images/weather/hail.png');
+}
+
+.weather-rainy {
+    background-image: url('/public/images/weather/rainy.jpg');
+}
+
+.weather-snow {
+    background-image: url('/public/images/weather/snow.jpg');
+}
+
+.weather-stormy {
+    background-image: url('/public/images/weather/stormy.jpg');
+}
+
+.weather-sunny {
+    background-image: url('/public/images/weather/sunny.jpg');
+}
+
+.weather-menu-background {
+    background: rgba(0, 0, 0, 0.35);
 }

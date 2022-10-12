@@ -69,6 +69,8 @@
                 var header = lastTest.replace(/\-/igm, ' ').capitalizeEachFirstLetters();
 
                 document.getElementById('header').textContent = header;
+                document.getElementById('header').style = '';
+                document.getElementById('root-container').classList = '';
                 document.getElementById('root').innerHTML = data.html;
                 document.getElementById('javascript-container').innerHTML = data.jsHTML;
                 document.getElementById('javascript-copy-input').value = data.js;

@@ -1,9 +1,15 @@
 var weather = {
     load: function() {
         var $this = this;
-        this.getLocation(function(position) {
+        /*
+            Adjust document to user device height
+        */
+        var height = document.getElementsByTagName('html')[0].offsetHeight - document.getElementsByTagName('nav')[0].offsetHeight;
+        document.getElementsByTagName('body')[0].style = 'height:' + height + 'px;';
+        document.getElementById('header').style = 'display: none;';
 
-            $this.getWeather.apply($this, [position])
+        this.getLocation(function(position) {
+            $this.getWeather.apply($this, [position]);
         });
     },
 
@@ -27,26 +33,11 @@ var weather = {
             var response = JSON.parse(this.responseText);
 
             $this.renderLocation(response, position);
+            $this.renderMenuForecastInfo(response.forecast.properties.periods[0], response.forecast.properties.periods);
+            $this.renderDayForecast(response.forecast.properties.periods[0]);
+            $this.changeWeatherDayBinding(response.forecast.properties.periods);
 
-            var lastUpdated = new Date(response.forecast.properties.updated).getDateTime();
-
-            response.forecast.properties.periods.forEach(function(period, i) {
-                $this.renderDayForecast(period, lastUpdated, i);
-            });
-
-            $this.showOtherTemperatureBindings();
-
-            var weatherCarousel = document.getElementById('html-weather').getElementsByClassName('day-forecast-container')[0].getElementsByClassName('carousel')[0];
-
-            weatherCarousel.getElementsByClassName('carousel-item')[0].classList += ' active';
-
-            var carousel = new bootstrap.Carousel(weatherCarousel, {
-                interval: 10000
-            });
-
-            Promise.all($this.waitForVideosDataLoadBindings()).then(function() {
-                document.getElementById('all-forecast-container').style = '';
-            });
+            document.getElementById('all-forecast-container').style = '';
         };
 
         xhttp.open('GET', '/weather/info/' + position.coords.latitude + '/' + position.coords.longitude, true);
@@ -55,24 +46,24 @@ var weather = {
     },
 
     getWeatherBackgroundStyles: function(desc) {
-        var styles = { src: '/public/videos/weather/', text: 'text-light' };
+        var styles = { class: '', text: 'text-light' };
 
         if (/snow/igm.test(desc)) {
-            styles.src += 'snow.mp4';
+            styles.class = 'weather-snow';
         } else if (/storm/igm.test(desc)) {
-            styles.src += 'stormy.mp4';
+            styles.class = 'weather-stormy';
         } else if (/sun/igm.test(desc)) {
-            styles.src += 'sunny.mp4';
+            styles.class = 'weather-sunny';
         } else if (/clear/igm.test(desc)) {
-            styles.src += 'clear.mp4';
+            styles.class = 'weather-clear';
         } else if (/cloud/igm.test(desc)) {
-            styles.src += 'cloudy.mp4';
+            styles.class = 'weather-cloudy';
         } else if (/hail/igm.test(desc)) {
-            styles.src += 'hail.mp4';
+            styles.class = 'weather-hail';
         } else if (/(rain)|(shower)/igm.test(desc)) {
-            styles.src += 'rainy.mp4';
+            styles.class = 'weather-rainy';
         } else {
-            styles.src += 'cloudy.mp4';
+            styles.class = 'weather-cloudy';
         }
 
         return styles;
@@ -86,138 +77,134 @@ var weather = {
         return Math.round(((far - 32) * 5 / 9)).toString();
     },
 
-    showOtherTemperatureBindings: function() {
-        var showOtherTempElem = document.getElementsByClassName('show-other-temp');
+    renderMenuForecastInfo: function(period, periods) {
+        var style = this.getWeatherBackgroundStyles(period.shortForecast);
 
-        for (var i = 0; showOtherTempElem.length - 1 >= i; i++) {
-            var thisShowTempElem = showOtherTempElem[i];
+        document.getElementById('root-container').classList = style.class + ' h-100';
+        document.getElementById('root').classList = 'h-100';
+        /*
+            Create weather details
+        */
+        var row = document.createElement('div');
+        row.classList = 'row mb-2';
 
-            thisShowTempElem.addEventListener('click', function() {
-                if (this.textContent == 'Show Celcius') {
-                    this.textContent = 'Show Farenheit';
-                    this.closest('.forecast-card').getElementsByClassName('cel-temp-text')[0].style = '';
-                    this.closest('.forecast-card').getElementsByClassName('far-temp-text')[0].style = 'display: none;';
-                } else {
-                    this.textContent = 'Show Celcius';
-                    this.closest('.forecast-card').getElementsByClassName('cel-temp-text')[0].style = 'display: none;';
-                    this.closest('.forecast-card').getElementsByClassName('far-temp-text')[0].style = '';
-                }
-            });
-        }
-    },
+        var weatherDetailedForecastLabelDiv = document.createElement('div'),
+            weatherWindSpeedLabelDiv = document.createElement('div'),
+            weatherWindDirectionLabelDiv = document.createElement('div'),
+            weatherTempTrendLabelDiv = document.createElement('div');
 
-    waitForVideosDataLoadBindings: function() {
-        var videoElems = document.getElementsByTagName('video');
-        var allVideoPromises = [];
+        var weatherDetailedForecastDiv = document.createElement('div'),
+            weatherWindSpeedDiv = document.createElement('div'),
+            weatherWindDirectionDiv = document.createElement('div'),
+            weatherTempTrendDiv = document.createElement('div');
 
-        for (var i = 0; videoElems.length - 1 >= i; i++) {
-            var thisVideoElem = videoElems[i];
+        weatherDetailedForecastLabelDiv.classList = 'col-sm-6 text-light';
+        weatherWindSpeedLabelDiv.classList = 'col-sm-6 text-light';
+        weatherWindDirectionLabelDiv.classList = 'col-sm-6 text-light';
+        weatherTempTrendLabelDiv.classList = 'col-sm-6 text-light';
 
-            console.log('Video', thisVideoElem.getElementsByTagName('source')[0].src);
-            var videoPromise = new Promise(function(resolve, reject) {
-                thisVideoElem.addEventListener('loadeddata', function() {
-                    console.log('Resolved', this.getElementsByTagName('source')[0].src);
-                    resolve();
-                }, false);
-            });
+        weatherDetailedForecastLabelDiv.textContent = 'Detailed Forecast';
+        weatherWindSpeedLabelDiv.textContent = 'Wind Speed';
+        weatherWindDirectionLabelDiv.textContent = 'Wind Direction';
+        weatherTempTrendLabelDiv.textContent = 'Temperature Trend';
 
-            allVideoPromises.push(videoPromise);
-        }
+        weatherDetailedForecastDiv.classList = 'col-sm-6 text-light text-right text-sm';
+        weatherWindSpeedDiv.classList = 'col-sm-6 text-light text-right text-sm';
+        weatherWindDirectionDiv.classList = 'col-sm-6 text-light text-right text-sm';
+        weatherTempTrendDiv.classList = 'col-sm-6 text-light text-right text-sm';
 
-        return allVideoPromises;
+        weatherDetailedForecastDiv.textContent = period.detailedForecast;
+        weatherWindSpeedDiv.textContent = period.windSpeed;
+        weatherWindDirectionDiv.textContent = period.windDirection;
+        weatherTempTrendDiv.textContent = period.temperatureTrend;
+
+        var detailedForecastRow = row.cloneNode();
+        detailedForecastRow.appendChild(weatherDetailedForecastLabelDiv);
+        detailedForecastRow.appendChild(weatherDetailedForecastDiv);
+
+        var windSpeedRow = row.cloneNode();
+        windSpeedRow.appendChild(weatherWindSpeedLabelDiv);
+        windSpeedRow.appendChild(weatherWindSpeedDiv);
+
+        var windDirectionRow = row.cloneNode();
+        windDirectionRow.appendChild(weatherWindDirectionLabelDiv);
+        windDirectionRow.appendChild(weatherWindDirectionDiv);
+
+        var tempTrendRow = row.cloneNode();
+        tempTrendRow.appendChild(weatherTempTrendLabelDiv);
+        tempTrendRow.appendChild(weatherTempTrendDiv);
+
+        var weatherDetailsContainer = document.getElementById('weather-details');
+
+        weatherDetailsContainer.innerHTML = '';
+        weatherDetailsContainer.appendChild(detailedForecastRow);
+        weatherDetailsContainer.appendChild(windSpeedRow);
+        weatherDetailsContainer.appendChild(windDirectionRow);
+        weatherDetailsContainer.appendChild(tempTrendRow);
+
+        /*
+            Create weather day options
+        */
+        document.getElementById('weather-day-change').innerHTML = '';
+        periods.forEach(function(additionalPeriod, i) {
+            var li = document.createElement('li'),
+                link = document.createElement('a');
+
+            if (period.number != additionalPeriod.number) {
+                link.href = '#';
+                link.textContent = additionalPeriod.name;
+                link.classList = 'text-light';
+
+                li.id = 'period-' + additionalPeriod.number;
+                li.classList = 'new-weather-day text-light';
+            } else {
+                link.href = '#';
+                link.textContent = additionalPeriod.name;
+                link.classList = 'text-primary';
+
+                li.id = 'period-' + additionalPeriod.number;
+                li.classList = 'text-primary';
+            }
+
+            li.appendChild(link);
+            document.getElementById('weather-day-change').appendChild(li);
+        });
     },
 
     renderLocation: function(response, position) {
-        document.getElementById('html-weather').getElementsByClassName('coordinates')[0].getElementsByClassName('details')[0].innerHTML = 'Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude;
-        document.getElementById('html-weather').getElementsByClassName('coordinates')[0].getElementsByClassName('approx-location')[0].innerHTML = 'Timezone: ' + response.info.properties.timeZone + '<br>State: ' + response.info.properties.relativeLocation.properties.state;
+        //document.getElementById('html-weather').getElementsByClassName('coordinates')[0].getElementsByClassName('details')[0].innerHTML = 'Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude;
+        document.getElementById('html-weather').getElementsByClassName('coordinates')[0].getElementsByClassName('approx-location')[0].innerHTML = response.info.properties.timeZone + ' ' + response.info.properties.relativeLocation.properties.state;
     },
 
-    renderDayForecast: function(period, lastUpdated, i) {
-        var forecastCardContainer = document.createElement('div'),
-            forecastWeatherBackgroundVideo = document.createElement('video'),
-            forecastWeatherBackgroundSource = document.createElement('source'),
-            forecastCard = document.createElement('div'),
-            forecastCardBody = document.createElement('div'),
-            forecastCardImg = document.createElement('img'),
-            forecastCardTitle = document.createElement('h5'),
-            forecastCardSubTitle = document.createElement('h6'),
-            forecastCardTempText = document.createElement('p'),
-            forecastCardFarText = document.createElement('span'),
-            forecastCardCelText = document.createElement('span'),
-            forecastCardWindText = document.createElement('p'),
-            forecastCardDetailsText = document.createElement('p'),
-            forecastCardLastUpdatedContainer = document.createElement('blockquote'),
-            forecastCardLastUpdatedText = document.createElement('footer'),
-            forecastCardShowOtherTempBtn = document.createElement('a');
+    renderDayForecast: function(period) {
+        var weatherIcon = document.createElement('img');
+        weatherIcon.src = period.icon;
+        weatherIcon.classList = 'rounded';
 
-        var temperatureTrendText = !!period.temperatureTrend ? period.temperatureTrend.capitalizeFirstLetter() : 'No trend',
-            farTemperatureText = !!period.temperatureUnit && period.temperatureUnit.toLocaleLowerCase().trim() == 'f' ? period.temperature : this.convertToFarenheit(period.temperature),
-            celTemperatureText = !!period.temperatureUnit && period.temperatureUnit.toLocaleLowerCase().trim() == 'c' ? period.temperature : this.convertToCelsius(period.temperature);
+        document.getElementsByClassName('weather-temp')[0].textContent = period.temperature + '° ' + period.temperatureUnit;
+        document.getElementsByClassName('weather-date')[0].textContent = new Date(period.startTime).getDateTime();
+        document.getElementsByClassName('weather-desc')[0].textContent = period.shortForecast;
+        document.getElementsByClassName('weather-icon')[0].innerHTML = '';
+        document.getElementsByClassName('weather-icon')[0].appendChild(weatherIcon);
+    },
 
-        forecastWeatherBackgroundVideo.autoplay = true;
-        forecastWeatherBackgroundVideo.loop = true;
-        forecastWeatherBackgroundVideo.muted = true;
-        forecastWeatherBackgroundVideo.controls = false;
-        forecastWeatherBackgroundSource.type = 'video/mp4';
+    changeWeatherDayBinding(periods) {
+        var $this = this;
+        var weatherDay = document.getElementsByClassName('new-weather-day');
 
-        var weatherBackgroundStyles = this.getWeatherBackgroundStyles(period.shortForecast);
+        for (var i = 0; i <= weatherDay.length - 1; i++) {
+            var thisWeatherDay = weatherDay[i];
 
-        forecastWeatherBackgroundSource.src = weatherBackgroundStyles.src;
+            thisWeatherDay.removeEventListener('click', function() {});
+            thisWeatherDay.addEventListener('click', function() {
+                var weatherDayElem = this;
+                var weatherPeriod = periods.filter(function(period) { return weatherDayElem.id.split('-')[1] == period.number; })[0];
 
-        forecastCardContainer.classList = 'carousel-item';
-        forecastWeatherBackgroundVideo.classList = 'background-video';
-        forecastCard.classList = 'card forecast-card';
-        forecastCardBody.classList = 'card-body text-light text-shadow';
-        forecastCardImg.classList = 'rounded float-end mb-2';
-        forecastCardTitle.classList = 'card-title';
-        forecastCardSubTitle.classList = 'card-subtitle mb-4 text-muted';
-        forecastCardTempText.classList = 'card-text';
-        forecastCardFarText.classList = 'far-temp-text';
-        forecastCardCelText.classList = 'cel-temp-text';
-        forecastCardWindText.classList = 'card-text';
-        forecastCardDetailsText.classList = 'card-text pb-4 text-sm';
-        forecastCardLastUpdatedContainer.classList = 'blockquote text-end';
-        forecastCardLastUpdatedText.classList = 'blockquote-footer';
-        forecastCardShowOtherTempBtn.classList = 'text-sm show-other-temp';
-
-        forecastCardLastUpdatedContainer.style = 'font-size: 12px;';
-        forecastCardCelText.style = 'display: none;';
-
-        forecastCardShowOtherTempBtn.href = '#';
-
-        forecastCardImg.src = period.icon;
-        forecastCardTitle.textContent = period.name + '\'s Forecast';
-        forecastCardSubTitle.textContent = period.shortForecast;
-        forecastCardFarText.textContent = 'Temperature: ' + farTemperatureText + '°F (' + temperatureTrendText + ')';
-        forecastCardCelText.textContent = 'Temperature: ' + celTemperatureText + '°C (' + temperatureTrendText + ')';
-        forecastCardWindText.textContent = 'Wind: ' + period.windSpeed + ' (' + period.windDirection + ')';
-        forecastCardDetailsText.textContent = period.detailedForecast;
-        forecastCardLastUpdatedText.textContent = 'Last Updated: ' + lastUpdated;
-        forecastCardShowOtherTempBtn.textContent = 'Show Celcius';
-
-        forecastCardBody.appendChild(forecastCardImg);
-        forecastCardBody.appendChild(forecastCardTitle);
-        forecastCardBody.appendChild(forecastCardSubTitle);
-
-        forecastCardTempText.appendChild(forecastCardFarText);
-        forecastCardTempText.appendChild(forecastCardCelText);
-        forecastCardTempText.appendChild(forecastCardShowOtherTempBtn);
-
-        forecastCardBody.appendChild(forecastCardTempText);
-        forecastCardBody.appendChild(forecastCardWindText);
-        forecastCardBody.appendChild(forecastCardDetailsText);
-
-        forecastCardLastUpdatedContainer.appendChild(forecastCardLastUpdatedText);
-        forecastCardBody.appendChild(forecastCardLastUpdatedContainer);
-
-        forecastWeatherBackgroundVideo.appendChild(forecastWeatherBackgroundSource);
-
-        forecastCard.appendChild(forecastCardBody);
-        forecastCard.appendChild(forecastWeatherBackgroundVideo);
-
-        forecastCardContainer.appendChild(forecastCard);
-
-        document.getElementById('html-weather').getElementsByClassName('day-forecast-container')[0].getElementsByClassName('carousel-inner')[0].appendChild(forecastCardContainer);
+                $this.renderMenuForecastInfo(weatherPeriod, periods);
+                $this.renderDayForecast(weatherPeriod);
+                $this.changeWeatherDayBinding(periods);
+            });
+        }
     }
 };
 
