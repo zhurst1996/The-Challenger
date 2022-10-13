@@ -9,7 +9,12 @@ String.prototype.capitalizeEachFirstLetters = function(char) {
     var delimitter = char || ' ';
 
     var stringText = '';
-    this.split(delimitter).forEach(function(word) {
+    this.split(delimitter).forEach(function(word, i) {
+        if (/(^is$)|(^of$)|(^a$)|(^an$)|(^and$)|(^or$)/igm.test(word) && i != 0) {
+            stringText += ' ' + word;
+            return;
+        }
+
         stringText += (' ' + word.capitalizeFirstLetter());
     });
 

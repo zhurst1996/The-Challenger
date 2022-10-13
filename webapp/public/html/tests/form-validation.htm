@@ -1,0 +1,52 @@
+<div id="html-form-validation-container" class="container">
+    <h5>Description</h5>
+    <p>
+        This test is designed to take a user input in many different types of fields and see if they follow the rules of the input field, it will display an error if it doesn't follow the rules of the field.
+    </p>
+    <div class="row mb-4">
+        <div class="col-sm-4">
+            <strong>Field Sets/Types:</strong>
+            <select id="field-type-select" class="form-control"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div id="user-registration" class="border rounded blue-gradient-background-opaque box-shadow-light p-3 offset-sm-3 col-sm-6 init-fade-in field-type" style="display: none;">
+            <div class="d-flex justify-content-between mb-2">
+                <h6 class="text-light my-auto">The Challenger Registration</h6>
+                <img src="/public/images/favicon.png" />
+            </div>
+
+            <span id="email-error" class="text-warning"></span>
+            <div class="input-group mb-3">
+                <input id="email" type="text" class="form-control rounded-pill" placeholder="Email" aria-label="Email" aria-describedby="basic-username-addon" />
+            </div>
+
+            <span id="password-error" class="text-warning"></span>
+            <div class="input-group mb-3">
+                <input id="password" type="password" class="form-control rounded-pill" placeholder="Password" aria-label="Password" aria-describedby="basic-password-addon" />
+            </div>
+
+            <span id="password-verify-error" class="text-warning"></span>
+            <div class="input-group mb-3">
+                <input id="password-verify" type="password" class="form-control rounded-pill" placeholder="Verify Password" aria-label="Verify Password" aria-describedby="basic-verify-password-addon" />
+            </div>
+
+            <div class="d-flex justify-content-end mt-2">
+                <div class="my-auto">
+                    <button id="challenger-register-button" class="btn btn-sm btn-outline-light rounded-pill px-2">Register</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="is-a-number" class="offset-sm-3 col-sm-6 field-type" style="display: none;">
+            <div class="input-group mb-3">
+                <input id="is-a-number-field" type="text" class="form-control rounded-pill" placeholder="Enter Something" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <div id="is-a-number-result" class="text-primary"></div>
+                <button id="is-a-number-button" class="btn btn-sm btn-outline-primary rounded-pill px-2">Execute</button>
+            </div>
+        </div>
+    </div>
+</div>
