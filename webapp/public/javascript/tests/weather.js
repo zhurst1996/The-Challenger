@@ -6,6 +6,7 @@ var weather = {
         */
         var height = document.getElementsByTagName('html')[0].offsetHeight - document.getElementsByTagName('nav')[0].offsetHeight;
         document.getElementsByTagName('body')[0].style = 'height:' + height + 'px;';
+        document.getElementById('weather-menu').style = 'height:' + height + 'px;';
         document.getElementById('header').style = 'display: none;';
 
         this.getLocation(function(position) {
@@ -34,9 +35,9 @@ var weather = {
 
             $this.renderLocation(response, position);
             $this.renderMenuForecastInfo(response.forecast.properties.periods[0], response.forecast.properties.periods);
-            $this.renderDayForecast(response.forecast.properties.periods[0]);
-            $this.changeWeatherDayBinding(response.forecast.properties.periods);
-
+            $this.renderDayForecast(response.forecast.properties.periods[0], response.forecastHourly.properties.periods);
+            $this.changeWeatherDayBinding(response.forecast.properties.periods, response.forecastHourly.properties.periods);
+            console.log(response);
             document.getElementById('all-forecast-container').style = '';
         };
 
@@ -176,7 +177,32 @@ var weather = {
         document.getElementById('html-weather').getElementsByClassName('coordinates')[0].getElementsByClassName('approx-location')[0].innerHTML = response.info.properties.timeZone + ' ' + response.info.properties.relativeLocation.properties.state;
     },
 
-    renderDayForecast: function(period) {
+    renderHourlyForecast: function(periods) {
+        document.getElementById('weather-hourly').innerHTML = '';
+
+        periods.forEach(function(period) {
+            var hourlyContainer = document.createElement('div'),
+                weatherIcon = document.createElement('img'),
+                weatherTemp = document.createElement('div'),
+                weatherTime = document.createElement('div');
+
+            hourlyContainer.classList = 'm-2 text-light';
+            weatherIcon.classList = 'weather-icon';
+
+            weatherIcon.src = period.icon;
+
+            weatherTemp.textContent = period.temperature + '° ' + period.temperatureUnit;
+            weatherTime.textContent = new Date(period.startTime).toLocaleTimeString();
+
+            hourlyContainer.appendChild(weatherIcon);
+            hourlyContainer.appendChild(weatherTemp);
+            hourlyContainer.appendChild(weatherTime);
+
+            document.getElementById('weather-hourly').appendChild(hourlyContainer);
+        });
+    },
+
+    renderDayForecast: function(period, hourlyPeriods) {
         var weatherIcon = document.createElement('img');
         weatherIcon.src = period.icon;
         weatherIcon.classList = 'rounded';
@@ -186,9 +212,15 @@ var weather = {
         document.getElementsByClassName('weather-desc')[0].textContent = period.shortForecast;
         document.getElementsByClassName('weather-icon')[0].innerHTML = '';
         document.getElementsByClassName('weather-icon')[0].appendChild(weatherIcon);
+
+        var todaysHourlyPeriods = hourlyPeriods.filter(function(hourlyPeriod) {
+            return new Date(period.startTime).toLocaleDateString() == new Date(hourlyPeriod.startTime).toLocaleDateString();
+        });
+
+        this.renderHourlyForecast(todaysHourlyPeriods);
     },
 
-    changeWeatherDayBinding(periods) {
+    changeWeatherDayBinding(periods, hourlyPeriods) {
         var $this = this;
         var weatherDay = document.getElementsByClassName('new-weather-day');
 
@@ -201,8 +233,8 @@ var weather = {
                 var weatherPeriod = periods.filter(function(period) { return weatherDayElem.id.split('-')[1] == period.number; })[0];
 
                 $this.renderMenuForecastInfo(weatherPeriod, periods);
-                $this.renderDayForecast(weatherPeriod);
-                $this.changeWeatherDayBinding(periods);
+                $this.renderDayForecast(weatherPeriod, hourlyPeriods);
+                $this.changeWeatherDayBinding(periods, hourlyPeriods);
             });
         }
     }
