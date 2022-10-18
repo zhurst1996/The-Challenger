@@ -13,3 +13,4 @@ The Challenger is a personal project that takes common JavaScript examples loads
 - JavaScript code exposure
 - Fizz Buzz
 - Weather Forecast
+- Form Validations
