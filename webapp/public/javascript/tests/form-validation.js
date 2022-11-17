@@ -11,6 +11,7 @@ var form_validation = {
         this.switchFieldTypeBinding();
         this.testRegistrationFormBinding();
         this.isANumberBinding();
+        this.nextLargestNumberBinding();
     },
 
     switchFieldTypeBinding: function() {
@@ -18,6 +19,66 @@ var form_validation = {
 
         document.getElementById('field-type-select').addEventListener('change', function() {
             $this.showFieldType(this.value);
+        });
+    },
+
+    nextLargestNumberBinding: function () {
+
+        document.getElementById('next-highest-number-button').addEventListener('click', function () {
+            var number = document.getElementById('next-highest-number-field').value.split('').map(function (thisNumber) { return parseInt(thisNumber); });
+                n = number.length;
+    
+            for (var i = n - 1; i >= 0; i--) {
+                if (number[i] > number[i - 1]) {
+                    break;
+                }
+            }
+             
+            // If no such digit found,then all
+            // numbers are in descending order,
+            // no greater number is possible
+            if (i == 1 && number[i] <= number[i - 1]) {
+                document.write("Next number not possible");
+                return;
+            }  
+             
+            // Find the smallest digit on the
+            // right side of (i-1)'th digit
+            // that is greater than number[i-1]
+            var x = number[i - 1];
+            var smallest = i;
+             
+            for(var j = i + 1; j < n; j++) {
+                if (number[j] > x && number[j] < number[smallest]) {
+                    smallest = j;
+                }
+            }
+             
+            // Swapping the above found smallest
+            // digit with (i-1)'th
+            var temp = number[smallest];
+            number[smallest] = number[i - 1];
+            number[i - 1] = temp;
+             
+            // X is the final number, in integer datatype
+            var x = 0
+             
+            // Converting list upto i-1 into number
+            for(var j = 0; j < i; j++) {
+                x = x * 10 + number[j];
+            }
+             
+            // Sort the digits after i-1 in ascending order
+            number = number.slice(i, number.length + 1);
+            number.sort()
+             
+            // Converting the remaining sorted
+            // digits into number
+            for(var j = 0; j < n - i; j++) {
+                x = x * 10 + number[j];
+            }
+    
+            document.getElementById('next-highest-number-output').textContent = x;
         });
     },
 
