@@ -38,7 +38,7 @@ var form_validation = {
             // numbers are in descending order,
             // no greater number is possible
             if (i == 1 && number[i] <= number[i - 1]) {
-                document.write("Next number not possible");
+                document.getElementById('next-highest-number-output').textContent = "Next number not possible";
                 return;
             }  
              
